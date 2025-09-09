@@ -16,6 +16,7 @@ func Contact(c *gin.Context) {
 			"success": false,
 			"message": "Invalid JSON Format",
 		})
+		return
 	}
 
 	err := utils.NotifyMe(contactReq)

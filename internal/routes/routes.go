@@ -13,7 +13,7 @@ func ConfigureRoutes() *gin.Engine {
 	//middlewares
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"https://habeebamoo.netlify.app", "https://acitglobal.vercel.app"},
-		AllowMethods: []string{"POST"},
+		AllowMethods: []string{"POST", "OPTIONS"},
 		AllowHeaders: []string{"Content-Type", "X-API-KEY", "Origin"},
 	}))
 	r.Use(middlewares.RequireAPIKey())

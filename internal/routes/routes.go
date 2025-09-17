@@ -23,7 +23,14 @@ func ConfigureRoutes() *gin.Engine {
 	}))
 	r.Use(middlewares.RequireAPIKey())
 
-	r.POST("/api/v1/contact", handlers.Contact)
+	r.OPTIONS("/*path", func(c *gin.Context) {
+		c.Status(200)
+	})
+
+	v1 := r.Group("/api/v1")
+	{
+		v1.POST("/contact", handlers.Contact)
+	}
 
 	return r
 }

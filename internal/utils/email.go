@@ -8,19 +8,18 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-func NotifyMe(contactReq models.Contact) error {
+func NotifyMe(contactReq *models.Contact) error {
 	m := gomail.NewMessage()
 
-	m.SetHeader("From", m.FormatAddress("habeebfrommaildrop@gmail.com", "Porfolio"))
-	m.SetHeader("Subject", "Contact Request")
-	m.SetHeader("To", "habeebamoo08@gmail.com")
+	m.SetHeader("From", m.FormatAddress("habeebfrommaildrop@gmail.com", contactReq.Subject))
+	m.SetHeader("Subject", contactReq.Subject)
+	m.SetHeader("To", contactReq.ReceiverEmail)
 
 	//Email body (HTML)
 	body := fmt.Sprintf(`
 		<html>
 			<body>
-				<h1>Porfolio Contact</h1>
-				<p>New contact request from your portfolio</p>
+				<h1>Message from %s</h1>
 				<hr>
 
 				<p>Name: %s</p>
@@ -28,7 +27,7 @@ func NotifyMe(contactReq models.Contact) error {
 				<p>Message: %s</p>
 			</body>
 		</html>
-	`, contactReq.Name, contactReq.Email, contactReq.Message)
+	`, contactReq.Subject, contactReq.SenderName, contactReq.SenderEmail, contactReq.Message)
 
 	m.SetBody("text/html", body)
 

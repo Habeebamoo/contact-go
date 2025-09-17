@@ -9,13 +9,22 @@ import (
 )
 
 func Contact(c *gin.Context) {
-	var contactReq models.Contact
+	contactReq := &models.Contact{}
 	if err := c.ShouldBindJSON(&contactReq); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status": 404,
 			"success": false,
 			"message": "Invalid JSON Format",
 		})
+		return
+	}
+
+	if err := contactReq.Validate(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": 400,
+			"success": false,
+			"message": err.Error(),
+		})	
 		return
 	}
 

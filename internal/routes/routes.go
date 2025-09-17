@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"time"
+
 	"github.com/Habeebamoo/contact-go/internal/handlers"
 	"github.com/Habeebamoo/contact-go/internal/middlewares"
 	"github.com/gin-contrib/cors"
@@ -14,7 +16,10 @@ func ConfigureRoutes() *gin.Engine {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"https://habeebamoo.netlify.app", "https://acitglobal.vercel.app"},
 		AllowMethods: []string{"POST", "OPTIONS"},
-		AllowHeaders: []string{"Content-Type", "X-API-KEY", "Origin"},
+		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY"},
+		ExposeHeaders: []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge: 12 * time.Hour,
 	}))
 	r.Use(middlewares.RequireAPIKey())
 

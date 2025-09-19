@@ -31,6 +31,8 @@ func main() {
 		IdleTimeout: 15*time.Second,
 	}
 
+	log.Println("Server running on port ", PORT)
+
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err == http.ErrServerClosed {
 			log.Fatal("server error ", err)

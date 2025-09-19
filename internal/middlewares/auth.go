@@ -1,9 +1,9 @@
 package middlewares
 
 import (
-	"net/http"
 	"os"
 
+	"github.com/Habeebamoo/contact-go/internal/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,22 +12,14 @@ func RequireAPIKey() gin.HandlerFunc {
 		clientAPiKey := c.GetHeader("X-API-KEY")
 
 		if clientAPiKey == "" {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"status": http.StatusUnauthorized,
-				"success": false,
-				"message": "API Key Missing",
-			})
+			utils.Abort(c, 401, "API Key Missing")
 			return 
 		}
 
 		apiKey := os.Getenv("API_KEY")
 
 		if clientAPiKey != apiKey {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"status": http.StatusUnauthorized,
-				"success": false,
-				"message": "Invalid API Key",
-			})
+			utils.Abort(c, 401, "Invalid API Key")
 			return 
 		}
 

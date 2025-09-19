@@ -13,7 +13,7 @@ func ConfigureRoutes() *gin.Engine {
 	//middlewares
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
-		AllowMethods: []string{"POST", "OPTIONS"},
+		AllowMethods: []string{"GET", "POST", "OPTIONS"},
 		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY"},
 	}))
 	r.Use(middlewares.RequireAPIKey())

@@ -11,9 +11,9 @@ func ConfigureRoutes() *gin.Engine {
 
 	//middlewares
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"*"},
+		AllowOrigins: []string{"https://habeebamoo.netlify.app"},
 		AllowMethods: []string{"GET", "POST", "OPTIONS"},
-		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY"},
+		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY", "Accept", "X-Requested-With"},
 	}))
 
 	//r.Use(middlewares.RequireAPIKey())

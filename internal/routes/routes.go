@@ -12,7 +12,7 @@ func ConfigureRoutes() *gin.Engine {
 
 	//middlewares
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"https://habeebamoo.netlify.app"},
+		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"GET", "POST", "OPTIONS"},
 		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY"},
 	}))

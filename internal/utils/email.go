@@ -31,11 +31,11 @@ func NotifyMe(contactReq *models.Contact) error {
 
 	m.SetBody("text/html", body)
 
-	d := gomail.NewDialer("smtp.gmail.com", 464, "habeebfrommaildrop@gmail.com", os.Getenv("PASSWORD"))
+	d := gomail.NewDialer("smtp.gmail.com", 465, "habeebfrommaildrop@gmail.com", os.Getenv("PASSWORD"))
 	d.SSL = true
 
 	if err := d.DialAndSend(m); err != nil {
-		return fmt.Errorf("error sending message")
+		return err
 	}
 
 	return nil

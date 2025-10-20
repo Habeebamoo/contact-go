@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/Habeebamoo/contact-go/internal/handlers"
+	"github.com/Habeebamoo/contact-go/internal/middlewares"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -13,10 +14,11 @@ func ConfigureRoutes() *gin.Engine {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"https://habeebamoo.netlify.app"},
 		AllowMethods: []string{"GET", "POST", "OPTIONS"},
-		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY", "Accept", "X-Requested-With"},
+		AllowHeaders: []string{"Origin", "Content-Type", "X-API-KEY"},
 	}))
 
-	//r.Use(middlewares.RequireAPIKey())
+	r.Use(middlewares.RequireAPIKey())
+	r.Use(middlewares.CustomRecovery())
 
 	r.OPTIONS("/*path", func(c *gin.Context) {
 		c.Status(200)
